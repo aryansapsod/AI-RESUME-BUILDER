@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <title>Results - Resume Matcher</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Ranked Resumes</h1>
+    <table border="1">
+      <thead>
+        <tr><th>Rank</th><th>Resume</th><th>Match Score (%)</th></tr>
+      </thead>
+      <tbody>
+        {% for item in scores %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ item.filename }}</td>
+          <td>{{ (item.score * 100) | round(2) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div>
+      <a href="{{ url_for('download_csv', filename=result_csv) }}">Download CSV of results</a>
+    </div>
+    <div>
+      <a href="{{ url_for('download_zip', filename=zip_file) }}">Download top resumes (ZIP)</a>
+    </div>
+    <div>
+      <a href="{{ url_for('index') }}">Do another</a>
+    </div>
+  </div>
+</body>
+</html>
